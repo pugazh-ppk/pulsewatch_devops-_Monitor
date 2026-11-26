@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PulseWatch</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#eef2f7; color:#172033; margin:0; }
+    main { max-width:720px; margin:50px auto; padding:24px; }
+    .card { background:white; border-radius:16px; padding:28px; box-shadow:0 8px 30px #0001; }
+    h1 { margin-top:0; color:#175cd3; }
+    form { display:flex; gap:10px; flex-wrap:wrap; }
+    input { flex:1; min-width:220px; padding:12px; border:1px solid #ccd3df; border-radius:8px; }
+    button { padding:12px 18px; border:0; border-radius:8px; background:#175cd3; color:white; cursor:pointer; }
+    .result,.error { margin-top:20px; padding:16px; border-radius:10px; }
+    .result { background:#e8f7ed; }
+    .error { background:#fff0f0; color:#9b1c1c; }
+    .muted { color:#687386; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>PulseWatch 🌐</h1>
+    <p class="muted">Check a public website's availability and response time.</p>
+    <form method="post">
+      <input name="url" type="url" placeholder="https://example.com" value="{{ url }}" required>
+      <button type="submit">Check website</button>
+    </form>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    {% if result and result.ok %}
+      <div class="result">
+        <h2>{{ "Online" if result.online else "Unusual response" }}</h2>
+        <p><strong>Website:</strong> {{ result.url }}</p>
+        <p><strong>HTTP status:</strong> {{ result.status_code }}</p>
+        <p><strong>Response time:</strong> {{ result.response_time_ms }} ms</p>
+      </div>
+    {% endif %}
+    <p class="muted">PulseWatch demo project • DevOps internship</p>
+  </div>
+</main>
+</body>
+</html>
